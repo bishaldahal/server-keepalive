@@ -68,4 +68,24 @@ function getSarcasticMessage() {
   ];
 }
 
-module.exports = { validateEnv, getSarcasticMessage };
+/**
+ * Formats uptime seconds into a human-readable string
+ * @param {number} seconds - Uptime in seconds
+ * @returns {string} Formatted uptime string
+ */
+function formatUptime(seconds) {
+  const days = Math.floor(seconds / (3600 * 24));
+  const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
+
+  const parts = [];
+  if (days) parts.push(`${days} day${days !== 1 ? 's' : ''}`);
+  if (hours) parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`);
+  if (minutes) parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`);
+  if (secs || parts.length === 0) parts.push(`${secs} second${secs !== 1 ? 's' : ''}`);
+  
+  return parts.join(', ');
+}
+
+module.exports = { validateEnv, getSarcasticMessage, formatUptime };
